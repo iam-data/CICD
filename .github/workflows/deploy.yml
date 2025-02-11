@@ -1,0 +1,25 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]  # Only trigger on pushes to "main"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build site
+        run: npm run build  # Build your static site (e.g., React, Jekyll)
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3  # Popular deployment action
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # GitHub's auto-generated token
+          publish_dir: ./build  # Folder with built files
